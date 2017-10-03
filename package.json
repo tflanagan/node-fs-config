@@ -1,0 +1,45 @@
+{
+  "name": "fs-config",
+  "version": "1.0.0",
+  "description": "Load a directory of JSON files into an object",
+  "keywords": [
+    "config",
+    "json",
+    "fs"
+  ],
+  "homepage": "https://github.com/tflanagan/node-fs-config",
+  "bugs": {
+    "url": "https://github.com/tflanagan/node-fs-config/issues",
+    "email": "contact@tristianflanagan.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Tristian Flanagan",
+    "url": "https://github.com/tflanagan",
+    "email": "contact@tristianflanagan.com"
+  },
+  "maintainers": [
+    {
+      "name": "Tristian Flanagan",
+      "url": "https://github.com/tflanagan",
+      "email": "contact@tristianflanagan.com"
+    }
+  ],
+  "contributors": [
+    "Tristian Flanagan <contact@tristianflanagan.com> (https://github.com/tflanagan)"
+  ],
+  "main": "src/fs-config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tflanagan/node-fs-config.git"
+  },
+  "engines": {
+    "node": ">=4.0.*"
+  },
+  "git": "https://github.com/tflanagan/node-fs-config.git",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "debug": "^3.1.0",
+    "lodash.merge": "^4.6.0"
+  }
+}
