@@ -49,7 +49,23 @@ class FSConfig {
 		});
 	}
 
-	loadFile(file){
+	loadDirSync(dir){
+		debug('Scanning configuration folder %s...', dir);
+
+		readdirSync(dir).forEach((file) => {
+			if(!file){
+				return;
+			}
+
+			const localConfig = this.loadFile(path.join(dir, file), true);
+
+			this.config = merge(this.config, localConfig);
+		})
+
+		return this.config;
+	}
+
+	loadFile(file, sync){
 		debug('Loading configuration file %s... ', file);
 
 		const configBase = path.basename(file, '.json');
@@ -58,7 +74,7 @@ class FSConfig {
 
 		localConfig[configBase] = require(file);
 
-		return Promise.resolve(localConfig);
+		return sync ? localConfig : Promise.resolve(localConfig);
 	}
 
 }
@@ -89,6 +105,20 @@ const readdirAsync = (dir, options) => {
 				});
 			}).then(resolve).catch(reject);
 		});
+	});
+};
+
+const readdirSync = (dir, options) => {
+	return fs.readdirSync(dir, options).map((result) => {
+		const resultPath = path.join(dir, result);
+
+		var stats = fs.statSync(resultPath);
+
+		if(stats.isDirectory()){
+			return readdirSync(resultPath);
+		}
+
+		return result;
 	});
 };
 
