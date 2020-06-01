@@ -1,6 +1,6 @@
 {
   "name": "fs-config",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Load a directory of JSON files into an object",
   "keywords": [
     "config",
@@ -29,6 +29,7 @@
     "Tristian Flanagan <contact@tristianflanagan.com> (https://github.com/tflanagan)"
   ],
   "main": "src/fs-config.js",
+  "types": "src/fs-config.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/tflanagan/node-fs-config.git"
