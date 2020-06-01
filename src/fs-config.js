@@ -18,9 +18,8 @@
 /* Dependencies */
 const fs = require('fs');
 const path = require('path');
-const merge = require('lodash.merge');
+const merge = require('deepmerge');
 const debug = require('debug')('fs-config');
-const Promise = require('bluebird');
 
 /* FSConfig */
 class FSConfig {
@@ -34,16 +33,18 @@ class FSConfig {
 	loadDir(dir){
 		debug('Scanning configuration folder %s...', dir);
 
-		return readdirAsync(dir).each((file) => {
-			if(!file){
-				return;
-			}
-
-			return this.loadFile(path.join(dir, file)).then((localConfig) => {
-				this.config = merge(this.config, localConfig);
-
-				return;
-			});
+		return readdirAsync(dir).then((files) => {
+			return Promise.all(files.map((file) => {
+				if(!file){
+					return;
+				}
+	
+				return this.loadFile(path.join(dir, file)).then((localConfig) => {
+					this.config = merge(this.config, localConfig);
+	
+					return;
+				});
+			}));
 		}).then(() => {
 			return this.config;
 		});
@@ -60,7 +61,7 @@ class FSConfig {
 			const localConfig = this.loadFile(path.join(dir, file), true);
 
 			this.config = merge(this.config, localConfig);
-		})
+		});
 
 		return this.config;
 	}
@@ -87,7 +88,7 @@ const readdirAsync = (dir, options) => {
 				return reject(err);
 			}
 
-			return Promise.map(results, (result) => {
+			return Promise.all(results.map((result) => {
 				const resultPath = path.join(dir, result);
 
 				return new Promise((resolve, reject) => {
@@ -103,7 +104,7 @@ const readdirAsync = (dir, options) => {
 						return resolve(result);
 					});
 				});
-			}).then(resolve).catch(reject);
+			})).then(resolve).catch(reject);
 		});
 	});
 };

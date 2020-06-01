@@ -1,9 +1,9 @@
 declare class FSConfig {
 	public config: FSConfigObj;
     constructor();
-	async loadDir(dir: string): Promise<FSConfigObj>;
-	loadDirSync(dir: string): FSConfigObj;
-	loadFile(file: string, sync?: boolean): FSConfigObj;
+	async loadDir<T = FSConfigObj>(dir: string): Promise<T>;
+	loadDirSync<T = FSConfigObj>(dir: string): T;
+	loadFile<T = FSConfigObj>(file: string, sync?: boolean): T;
 }
 
 export interface FSConfigObj {

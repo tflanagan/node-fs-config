@@ -1,6 +1,6 @@
 {
   "name": "fs-config",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Load a directory of JSON files into an object",
   "keywords": [
     "config",
@@ -39,8 +39,7 @@
   },
   "git": "https://github.com/tflanagan/node-fs-config.git",
   "dependencies": {
-    "bluebird": "^3.5.0",
     "debug": "^3.1.0",
-    "lodash.merge": "^4.6.0"
+    "deepmerge": "^4.2.2"
   }
 }
